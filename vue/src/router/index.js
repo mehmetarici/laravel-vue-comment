@@ -1,6 +1,6 @@
 import {createRouter, createWebHistory} from "vue-router";
 import {DefaultLayout} from "../components";
-import {Dashboard} from "../views";
+import {Dashboard, PostDetail} from "../views";
 
 const routes = [{
     path: "/",
@@ -9,6 +9,7 @@ const routes = [{
     meta: {requiresAuth: true},
     children: [
         {path: "/dashboard", name: "Dashboard", component: Dashboard},
+        {path: "/posts/123/detail", name: "PostDetail", component: PostDetail},
     ]
 }]
 

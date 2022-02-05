@@ -113,6 +113,7 @@ const user = {
 }
 const navigation = [
     {name: 'Dashboard', to: {name: "Dashboard"}},
+    {name: 'Post Detail', to: {name: "PostDetail"}},
 ]
 
 // TODO not required part
