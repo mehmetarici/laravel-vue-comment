@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateCommentRequest;
+use App\Http\Resources\CommentResource;
 use App\Repository\PostCommentRepositoryInterface;
 
 class PostCommentController extends Controller
@@ -13,13 +15,18 @@ class PostCommentController extends Controller
         $this->postCommentRepository = $postCommentRepository;
     }
 
-    public function getComments()
+    public function listComments()
     {
-        // TODO just for testing
         $comments = $this->postCommentRepository->all();
+        return CommentResource::collection($comments);
+    }
 
-        return response([
-            'users' => $comments
-        ]);
+    public function createComment(CreateCommentRequest $request)
+    {
+
+        $data = $request->validated();
+
+        $comment = $this->postCommentRepository->create($data);
+        return new CommentResource($comment);
     }
 }

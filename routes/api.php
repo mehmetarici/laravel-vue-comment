@@ -4,20 +4,12 @@ use App\Http\Controllers\PostCommentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// TODO just for testing
-Route::get("/comments", [PostCommentController::class, "getComments"]);
+// TODO postId for testing to complete API routing mechanism
+Route::prefix('posts/{postId}')->group(function () {
+    Route::get('/comments', [PostCommentController::class, "listComments"])->name("list-comments");
+    Route::post('/comments', [PostCommentController::class, "createComment"])->name("create-comment");
+});
