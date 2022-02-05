@@ -18,11 +18,11 @@ class CommentResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            'id' => $this->id,
-            'parent_id' => $this->parent_id,
-            'body' => $this->body,
-            'created_at' => (new \DateTime($this->created_at))->format('Y-m-d H:i:s'),
-            'updated_at' => (new \DateTime($this->updated_at))->format('Y-m-d H:i:s'),
+            "id" => $this->id,
+            "body" => $this->body,
+            "created_at" => (new \DateTime($this->created_at))->format("Y-m-d H:i:s"),
+            "updated_at" => (new \DateTime($this->updated_at))->format("Y-m-d H:i:s"),
+            "replies" => CommentResource::collection($this->whenLoaded('replies')),
         ];
     }
 }
