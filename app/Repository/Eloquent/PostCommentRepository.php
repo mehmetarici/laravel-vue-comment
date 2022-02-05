@@ -60,7 +60,9 @@ class PostCommentRepository extends BaseRepository implements PostCommentReposit
     {
         DB::beginTransaction();
         try {
-            $result = $this->create($attributes);
+            $result = $this->create($attributes)->with(['replies' => function ($query) {
+                $query->with("replies");
+            }])->first();
             Cache::flush();
         } catch (Exception $exception) {
             DB::rollBack();
