@@ -18,6 +18,8 @@ class CreateCommentsTable extends Migration
             $table->integer('parent_id')->unsigned()->nullable();
             $table->text('body');
             $table->timestamps();
+
+            $table->index('parent_id'); // For MySQL performance
         });
     }
 

@@ -21,8 +21,8 @@ class PostCommentController extends Controller
      */
     public function listComments(): AnonymousResourceCollection
     {
-        $comments = $this->postCommentRepository->all();
-        return CommentResource::collection($comments);
+        $result = $this->postCommentRepository->all();
+        return CommentResource::collection($result);
     }
 
     /**
