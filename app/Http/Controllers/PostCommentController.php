@@ -31,6 +31,7 @@ class PostCommentController extends Controller
      */
     public function createComment(CreateCommentRequest $request): CommentResource
     {
+
         $validatedRequest = $request->validated();
 
         $comment = $this->postCommentRepository->createComment($validatedRequest);
