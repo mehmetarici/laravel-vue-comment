@@ -8,13 +8,13 @@
                 class="mb-6"
                 avatar-img="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"/>
 
-            <CommentTreeNode v-for="comment in comments" :key="comment.id" :comment="comment"/>
+            <CommentTree v-for="comment in comments" :key="comment.id" :comment="comment"/>
         </div>
     </PageContainer>
 </template>
 
 <script setup>
-import {Blog, InputGroup, CommentTreeNode} from "./";
+import {Blog, InputGroup, CommentTree} from "./";
 import {PageContainer} from "../components";
 import {computed, watch} from "vue";
 

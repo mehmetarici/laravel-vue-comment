@@ -1,12 +1,12 @@
 <template>
     <div :class="deeper===0 ? '' : 'ml-[2rem] md:ml-[3rem]'">
-        <CommentContent
+        <CommentNode
             :comment="comment"
             :lastNode="isLastNode"
         />
 
         <div v-if="hasChildren">
-            <CommentTreeNode
+            <CommentTree
                 v-for="reply in comment.replies"
                 :key="reply.id"
                 :comment="reply"
@@ -19,11 +19,11 @@
 </template>
 
 <script>
-import {CommentContent} from "../";
+import {CommentNode} from "../";
 
 export default {
-    name: 'CommentTreeNode',
-    components: {CommentContent},
+    name: 'CommentTree',
+    components: {CommentNode},
     props: {
         comment: {
             type: Object,
