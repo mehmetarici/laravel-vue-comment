@@ -23,8 +23,7 @@ const store = createStore({
         createComment({commit}, request) {
             return axiosClient.post('/posts/34343/comments', request)
                 .then(({data}) => {
-                    console.log(request)
-                    commit('addComments', {comment: data.data, parentId: request.parent_id});
+                    commit('addComments', data.data);
                     return data;
                 })
         },
@@ -33,19 +32,33 @@ const store = createStore({
         setPostComments: (state, comments) => {
             state.posts.comments = comments;
         },
-        addComments: (state, {comment, parentId}) => {
+
+        addComments: (state, comment) => {
             const {comments} = state.posts;
-            console.log(parentId)
-            if (parentId) {
-                let parentNode = deepSearch(comments, 'id', (k, v) => v === parentId);
+            if (comment.parent_id) {
+                const parentNode = deepSearch(comments, 'id', (k, v) => v === comment.parent_id);
+                let parentCommentIndex = -1;
+                let topParentCommentIndex = -1;
                 if (parentNode.parent_id !== 0) {
-                    parentNode = deepSearch(comments, 'id', (k, v) => v === parentNode.parent_id);
+                    const topParentNode = deepSearch(comments, 'id', (k, v) => v === parentNode.parent_id);
+                    topParentCommentIndex = comments.findIndex(c => c.id === topParentNode.id);
+                    parentCommentIndex = comments[topParentCommentIndex].replies.findIndex(r => r.id === parentNode.id);
+                } else {
+                    parentCommentIndex = comments.findIndex(c => c.id === parentNode.id);
+
                 }
-                const parentCommentIndex = comments.findIndex(c => c.id === parentNode.id);
-                comments[parentCommentIndex] = comment;
+
+                if (topParentCommentIndex !== -1) {
+                    let replies = comments[topParentCommentIndex].replies[parentCommentIndex].replies ? comments[topParentCommentIndex].replies[parentCommentIndex].replies : [];
+                    replies = [comment, ...replies]
+                    comments[topParentCommentIndex].replies[parentCommentIndex].replies = replies;
+                } else {
+                    let replies = comments[parentCommentIndex].replies ? comments[parentCommentIndex].replies : [];
+                    replies = [comment, ...replies];
+                    comments[parentCommentIndex].replies = replies;
+                }
                 state.posts.comments = [...comments]
             } else {
-                console.log([comment, ...comments])
                 state.posts.comments = [comment, ...comments]
             }
         },

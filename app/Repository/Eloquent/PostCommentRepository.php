@@ -44,7 +44,7 @@ class PostCommentRepository extends BaseRepository implements PostCommentReposit
                     ->whereNull('parent_id')
                     ->orderBy("created_at", "DESC")
                     ->with(['replies' => function ($query) {
-                        $query->with("replies");
+                        $query->orderBy("created_at", "DESC")->with("replies");
                     }])
                     ->get();
             });
@@ -60,9 +60,7 @@ class PostCommentRepository extends BaseRepository implements PostCommentReposit
     {
         DB::beginTransaction();
         try {
-            $result = $this->create($attributes)->with(['replies' => function ($query) {
-                $query->with("replies");
-            }])->first();
+            $result = $this->create($attributes);
             Cache::flush();
         } catch (Exception $exception) {
             DB::rollBack();
