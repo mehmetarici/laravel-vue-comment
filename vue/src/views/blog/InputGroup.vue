@@ -1,11 +1,11 @@
 <template>
-    <div class="flex ">
+    <div class="flex items-center">
         <Avatar :avatarImg="avatarImg"/>
         <div class="pl-2 w-full relative rounded-md">
             <input
                 v-on:keyup.enter="postComment"
                 v-model="comment"
-                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-indigo-100"
+                class="appearance-none text-sm md:text-base block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 md:py-3 pl-2 pr-12 leading-tight focus:outline-none focus:bg-white focus:border-indigo-100"
                 type="text"
                 placeholder="Type your comment here..."
             />

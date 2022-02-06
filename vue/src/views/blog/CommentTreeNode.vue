@@ -1,5 +1,5 @@
 <template>
-    <div :class="'ml-'+spacing">
+    <div :class="deeper===0 ? '' : 'ml-[2rem] md:ml-[3rem]'">
         <CommentContent
             :comment="comment"
             :lastNode="isLastNode"
@@ -10,7 +10,7 @@
                 v-for="reply in comment.replies"
                 :key="reply.id"
                 :comment="reply"
-                :spacing="12"
+                :spacing="3"
                 :deeper="deeper+1"
 
             />

@@ -1,14 +1,14 @@
 <template>
-    <div class="flex mb-6">
+    <div class="flex mb-3 :=md:mb-6">
         <Avatar
             avatar-img="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"/>
 
-        <div class="pl-4 w-full">
+        <div class="pl-2 md:pl-4 w-full">
             <div class="flex justify-between w-full">
-                <span class="font-bold text-base text-slate-800">{{ comment.username }}</span>
-                <span class="font-normal text-[12px] text-gray-400">{{ createdAt }}</span>
+                <span class="font-bold text-[12px] md:text-base text-slate-800">{{ comment.username }}</span>
+                <span class="font-normal text-[12px] hidden md:block text-gray-400">{{ createdAt }}</span>
             </div>
-            <p class="font-normal text-sm mt-1 text-gray-500">{{ comment.body }}</p>
+            <p class="font-normal w-full break-words text-[10px] md:text-sm mt-1 text-gray-500">{{ comment.body }}</p>
             <button @click="toggleReplyInput" v-if="!replyActive && !lastNode" class="cursor-pointer py-0 bg-transparent text-sky-600 text-xs font-medium">
                 Reply
             </button>
