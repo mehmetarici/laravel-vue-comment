@@ -14,6 +14,7 @@ class CreateCommentRequest extends BaseRequest
         return [
             'parent_id' => 'sometimes|exists:comments,id',
             'body' => 'required|string|max:65535',
+            'username' => 'required|string|max:255',
         ];
     }
 

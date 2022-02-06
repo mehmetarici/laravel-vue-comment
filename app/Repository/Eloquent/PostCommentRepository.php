@@ -44,7 +44,7 @@ class PostCommentRepository extends BaseRepository implements PostCommentReposit
                     ->whereNull('parent_id')
                     ->orderBy("created_at", "DESC")
                     ->with(['replies' => function ($query) {
-                        $query->with("replies");
+                        $query->orderBy("created_at", "DESC")->with("replies");
                     }])
                     ->get();
             });
